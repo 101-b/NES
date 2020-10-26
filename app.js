@@ -7,6 +7,7 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
 var app = express();
 //enable ALL cors requests
 app.use(cors())
@@ -29,14 +30,18 @@ app.use('/users', usersRouter);
 
 // Apps's middlewares
 
+app.post('/test', (req, res, next) =>
+{
+  console.log(req.body.message);
+  console.log(req.headers);
+  console.log(req.headers.authorization);
+  res.status(200)
+})
+
 app.post('/', (req, res, next) => {
   console.log(req.body);
-  res.status(201)
-  .json("server : server's response here");
   next;
-}
-)
-
+})
 
 
 
@@ -58,4 +63,4 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = app
