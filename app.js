@@ -132,6 +132,22 @@ async function connect(uid) {
       }
     })
     
+  // =============================================================== products CRUD
+    const products= db.collection('products')
+
+    //R get ALL products
+    app.get('/getproducts',
+      async (req, res) => {
+      try {
+        const result = await products.find({ stock: {$gt: 0 }}).toArray()
+        res.status(200).send(result) 
+      } catch (err) {
+        res.status(404).send("Failed to GET data : " + err.message)
+      }
+      })
+    //R get ONE product
+    
+
     //tests
     app.post('/test', (req, res, next) => {
       console.log(req.body.message);
